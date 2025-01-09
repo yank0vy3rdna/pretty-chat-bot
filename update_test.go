@@ -10,8 +10,7 @@ import (
 	"github.com/yank0vy3rdna/pretty-chat-bot/model"
 )
 
-type update struct {
-}
+type update struct{}
 
 func updateProcessing() {
 	Context("sunny", func() {
@@ -19,7 +18,7 @@ func updateProcessing() {
 			ch := make(chan struct{})
 			bot, err := pretty.NewBot[update]().WithScreen(pretty.Screen[update]{
 				State: model.InitState,
-				Renderer: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+				Renderer: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 					close(ch)
 
 					return nil
@@ -44,14 +43,14 @@ func updateProcessing() {
 			bot, err := pretty.NewBot[update]().WithScreens(pretty.Screens[update]{
 				{
 					State: model.InitState,
-					Renderer: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+					Renderer: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 						return nil
 					}),
 					Transitions: []pretty.Transition[update]{
 						{
 							To:               testState,
 							DetectTransition: pretty.AlwaysTransite[update](),
-							Callback: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+							Callback: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 								close(transitionCallbackCh)
 
 								return nil
@@ -61,7 +60,7 @@ func updateProcessing() {
 				},
 				{
 					State: testState,
-					Renderer: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+					Renderer: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 						close(testStateRendererCh)
 
 						return nil

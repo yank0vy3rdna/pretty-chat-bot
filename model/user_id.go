@@ -1,3 +1,4 @@
 package model
 
-type UserId string
+// UserID used to find state and context user's chat
+type UserID string

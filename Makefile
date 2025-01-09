@@ -6,6 +6,7 @@ OUT_DIR := ${WORKING_DIR}/out
 
 deps:
 	go install github.com/onsi/ginkgo/v2/ginkgo
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.63.4
 	go install go.uber.org/mock/mockgen@latest
 
 dirs:
@@ -22,6 +23,9 @@ ginkgo-bootstrap:
 
 generate:
 	go generate ./...
+
+lint:
+	golangci-lint run
 
 test: dirs
 	ginkgo --cover -r --output-dir out/ -coverpkg=./...

@@ -23,7 +23,7 @@ func configValidation() {
 		Entry("Nil stateRepo", pretty.NewBot[update]().WithStateRepo(nil)),
 		Entry("Empty screen", pretty.NewBot[update]().WithScreen(pretty.Screen[update]{})),
 		Entry("Empty state in screen", pretty.NewBot[update]().WithScreen(pretty.Screen[update]{
-			Renderer: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+			Renderer: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 				return nil
 			}),
 		})),
@@ -32,18 +32,18 @@ func configValidation() {
 		})),
 		Entry("Several screens for same state", pretty.NewBot[update]().WithScreen(pretty.Screen[update]{
 			State: model.InitState,
-			Renderer: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+			Renderer: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 				return nil
 			}),
 		}).WithScreen(pretty.Screen[update]{
 			State: model.InitState,
-			Renderer: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+			Renderer: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 				return nil
 			}),
 		})),
 		Entry("Invalid transition - DetectTransition is nil", pretty.NewBot[update]().WithScreen(pretty.Screen[update]{
 			State: model.InitState,
-			Renderer: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+			Renderer: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 				return nil
 			}),
 			Transitions: []pretty.Transition[update]{
@@ -53,14 +53,14 @@ func configValidation() {
 			},
 		}).WithScreen(pretty.Screen[update]{
 			State: "test",
-			Renderer: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+			Renderer: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 				return nil
 			}),
 		}),
 		),
 		Entry("Invalid transition - no target screen found", pretty.NewBot[update]().WithScreen(pretty.Screen[update]{
 			State: model.InitState,
-			Renderer: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+			Renderer: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 				return nil
 			}),
 			Transitions: []pretty.Transition[update]{
@@ -71,7 +71,7 @@ func configValidation() {
 			},
 		}).WithScreen(pretty.Screen[update]{
 			State: "test",
-			Renderer: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+			Renderer: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 				return nil
 			}),
 			Transitions: []pretty.Transition[update]{},
@@ -87,14 +87,14 @@ func configValidation() {
 		},
 		Entry("only init", pretty.NewBot[update]().WithScreen(pretty.Screen[update]{
 			State: model.InitState,
-			Renderer: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+			Renderer: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 				return nil
 			}),
 		}),
 		),
 		Entry("correct transition", pretty.NewBot[update]().WithScreen(pretty.Screen[update]{
 			State: model.InitState,
-			Renderer: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+			Renderer: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 				return nil
 			}),
 			Transitions: []pretty.Transition[update]{
@@ -105,7 +105,7 @@ func configValidation() {
 			},
 		}).WithScreen(pretty.Screen[update]{
 			State: "test",
-			Renderer: pretty.CallbackFunc(func(ctx context.Context, userId model.UserId, u update, cc model.ChatContext) error {
+			Renderer: pretty.CallbackFunc(func(_ context.Context, _ model.UserID, _ update, _ model.ChatContext) error {
 				return nil
 			}),
 			Transitions: []pretty.Transition[update]{},
